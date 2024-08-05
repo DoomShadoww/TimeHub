@@ -1,0 +1,47 @@
+<div class="container mt-5">
+  <div class="row justify-content-center">
+    <div class="col-md-6">
+      <div class="card">
+        <div class="card-header text-center">
+          <h4>Register</h4>
+        </div>
+        <div class="card-body">
+          <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+            <div class="form-group">
+              <label for="username">Username</label>
+              <input type="text" id="username" formControlName="username" class="form-control" />
+              <div *ngIf="registerForm.get('username')?.invalid && (registerForm.get('username')?.dirty || registerForm.get('username')?.touched)" class="text-danger">
+                Username is required
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="password" class="form-label">Password</label>
+                <input type="password" class="form-control" id="password" formControlName="password">
+                <ul>
+                  <li [class.invalid]="!passwordValidations.minLength">Minimum 8 characters</li>
+                  <li [class.invalid]="!passwordValidations.hasUpperCase">At least one uppercase letter</li>
+                  <li [class.invalid]="!passwordValidations.hasLowerCase">At least one lowercase letter</li>
+                  <li [class.invalid]="!passwordValidations.hasSpecialChar">At least one special character</li>
+                  <li [class.invalid]="!passwordValidations.noConsecutiveNumbers">No consecutive numbers</li>
+                  <li [class.invalid]="!passwordValidations.noConsecutiveLetters">No consecutive letters</li>
+                </ul>
+            </div>
+            <!-- <div class="form-group">
+              <label for="role" class="form-label">Role</label>
+              <select class="form-control" id="role" formControlName="role">
+                <option value="user">User</option>
+                <option value="admin">Admin</option>
+              </select>
+            </div> -->
+
+            <button type="submit" class="btn btn-primary w-100" [disabled]="registerForm.invalid">Register</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+

@@ -1,0 +1,80 @@
+
+<head>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <script src="https://js.stripe.com/v3/"></script> <!-- Stripe JS -->
+
+
+</head>
+<body>
+    <header>
+        <h1>Tienda de Relojes</h1>
+    </header>
+    <section class="contenedor">
+        <!-- Contenedor de elementos -->
+        <div class="contenedor-items">
+            <div class="item" *ngFor="let producto of productos">
+              <span class="titulo-item">{{ producto.titulo }}</span>
+              <img [src]="producto.imagenSrc" alt="" class="img-item">
+              <span class="precio-item">{{ producto.precio | currency:'USD' }}</span>
+              <button class="boton-item" (click)="agregarItemAlCarrito(producto)">Agregar al Carrito</button>
+              <button class="btn-detalle" (click)="mostrarDetallesProducto(producto)">Ver Detalles</button>
+            </div>
+        </div>
+
+
+        <!-- Carrito de Compras -->
+        <div class="carrito" *ngIf="carritoVisible">
+          <div class="producto-detalle" *ngIf="productoSeleccionado">
+            <h2 class="header-carrito">Detalles del producto</h2>
+            <h2>{{ productoSeleccionado.titulo }}</h2>
+            <img [src]="productoSeleccionado.imagenSrc" alt="{{ productoSeleccionado.titulo }}" class="img-item">
+            <p class="descripcion-item">Aquí va una descripción detallada del producto...</p>
+            <span class="precio-item">{{ productoSeleccionado.precio | currency:'USD' }}</span>
+            <button class="boton-item" (click)="agregarItemAlCarrito(productoSeleccionado)">Agregar al Carrito</button>
+            <button class="btn-cerrar" (click)="cerrarDetalle()">Cerrar</button>
+          </div>
+
+            <div class="header-carrito">
+                <h2>Tu Carrito</h2>
+            </div>
+
+
+            <div class="carrito-items">
+                <div class="carrito-item" *ngFor="let item of carritoItems; let i = index">
+                    <img [src]="item.imagenSrc" width="80px" alt="">
+                    <div class="carrito-item-detalles">
+                        <span class="carrito-item-titulo">{{ item.titulo }}</span>
+                        <div class="selector-cantidad">
+                            <i class="fa-solid fa-minus restar-cantidad" (click)="restarCantidad(i)"></i>
+                            <label for="cantidad-{{i}}" class="visually-hidden">Cantidad</label>
+                            <input type="text" [value]="item.cantidad" class="carrito-item-cantidad" disabled>
+                            <i class="fa-solid fa-plus sumar-cantidad" (click)="sumarCantidad(i)"></i>
+                        </div>
+                        <span class="carrito-item-precio">{{ item.precio | currency:'USD' }}</span>
+                    </div>
+                    <button class="btn-eliminar" (click)="eliminarItemCarrito(i)" aria-label="eliminar">
+                        <i class="fa-solid fa-trash"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="carrito-total">
+                <div class="fila">
+                    <strong>Tu Total</strong>
+                    <span class="carrito-precio-total">{{ total | currency:'USD' }}</span>
+                </div>
+                <button class="btn-pagar" (click)="pagarClicked()">Pagar <i class="fa-solid fa-bag-shopping"></i></button>
+            </div>
+
+
+        </div>
+                        <!-- Agregar una sección de detalles del producto -->
+
+
+    </section>
+
+
+
+</body>
+

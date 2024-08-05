@@ -1,0 +1,124 @@
+
+
+
+
+
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="#">Mi Aplicación</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/home">Home</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/catalogo-usuarios">Catálogo de Usuarios</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/productos">Productos</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/carrito">Carrito</a>
+        </li>
+      </ul>
+      <button class="btn btn-danger"(click)="logout()">Cerrar Sesión</button>
+    </div>
+  </div>
+</nav>
+
+<div class="container">
+  <h1>Gestión de Usuarios</h1>
+
+  <!-- Formulario para crear un nuevo usuario -->
+  <div class="form-container">
+    <h2>Crear Nuevo Usuario</h2>
+    <form (ngSubmit)="createUser()">
+      <div class="form-group">
+        <label for="username">Username:</label>
+        <input id="username" [(ngModel)]="newUser.username" name="username" required class="form-control" />
+      </div>
+      <div class="form-group">
+        <label for="password">Password:</label>
+        <input id="password" [(ngModel)]="newUser.password" name="password" type="password" required class="form-control" />
+      </div>
+      <button type="submit" class="btn btn-primary" >Crear Usuario</button>
+    </form>
+  </div>
+
+  <!-- Lista de usuarios -->
+  <div class="user-list">
+    <h2>Usuarios Registrados</h2>
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Username</th>
+          <th>Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        @for (user of users; track user.id) {
+
+          <tr >
+            <td>{{ user.username }}</td>
+            <td>
+              <button class="btn btn-secondary" (click)="editUser(user)">Editar</button>
+              <button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteConfirmationModal"(click)="DeleteConfirm(user.username,user.id)">Eliminar</button>
+            </td>
+          </tr>
+        }
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Formulario para editar un usuario -->
+  <div class="form-container" *ngIf="isEditing">
+    <h2>Editar Usuario</h2>
+    <form (ngSubmit)="updateUser()">
+      <div class="form-group">
+        <label for="edit-username">Username:</label>
+        <input id="edit-username" [(ngModel)]="selectedUser.username" name="username" required class="form-control" />
+      </div>
+      <div class="form-group">
+        <label for="edit-password">Password:</label>
+        <input id="edit-password" [(ngModel)]="selectedUser.password" name="password" type="password" required class="form-control" />
+      </div>
+      <button type="submit" class="btn btn-primary">Actualizar Usuario</button>
+      <button type="button" class="btn btn-secondary" (click)="cancelEdit()">Cancelar</button>
+    </form>
+  </div>
+  <div class="container mt-3">
+    <div *ngIf="alert" class="alert alert-{{alert.type}} alert-dismissible fade show alert-bottom-right" role="alert">
+      {{ alert.message }}
+      <button type="button" class="btn-close" aria-label="Close" (click)="closeAlert()"></button>
+    </div>
+  </div>
+
+  <!-- Modal de Confirmación -->
+<div class="modal fade" id="deleteConfirmationModal" tabindex="-1" aria-labelledby="deleteConfirmationModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="deleteConfirmationModalLabel">Confirmar Eliminación</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        ¿Estás seguro de que deseas eliminar este usuario?
+      </div>
+      <div class="modal-footer">
+
+
+          <h1 class="moduleUser">{{ user.username }}</h1>
+          <button class="btn btn-danger"  data-bs-dismiss="modal" (click)="deleteUser(user.id)">Eliminar</button>
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+
+
+
+      </div>
+    </div>
+  </div>
+</div>
+
+</div>

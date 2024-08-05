@@ -1,0 +1,100 @@
+/* Estilo para el contenedor principal */
+.container {
+  margin-top: 50px;
+}
+
+/* Estilo para la tarjeta */
+.card {
+  border-radius: 15px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Estilo para la cabecera de la tarjeta */
+.card-header {
+  background-color: #007bff;
+  color: white;
+  font-size: 1.5rem;
+  border-top-left-radius: 15px;
+  border-top-right-radius: 15px;
+}
+
+/* Estilo para el cuerpo de la tarjeta */
+.card-body {
+  padding: 2rem;
+}
+
+/* login.component.css */
+
+
+.alert {
+  margin-bottom: 20px;
+}
+
+@keyframes fadeOutScale {
+  0% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+}
+
+.fade-out-scale {
+  animation: fadeOutScale 0.5s forwards;
+}
+
+@keyframes fadeInScale {
+  0% {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.fade-in-scale {
+  animation: fadeInScale 0.5s forwards;
+}
+
+
+
+/* Estilo para las etiquetas del formulario */
+label {
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+}
+
+/* Estilo para los campos del formulario */
+.form-control {
+  border-radius: 10px;
+  margin-bottom: 1rem;
+  padding: 0.75rem;
+  font-size: 1rem;
+  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+/* Estilo para el botón de enviar */
+.btn-primary {
+  background-color: #007bff;
+  border-color: #007bff;
+  padding: 0.75rem;
+  font-size: 1.25rem;
+  border-radius: 10px;
+  transition: background-color 0.3s, box-shadow 0.3s;
+}
+
+.btn-primary:hover {
+  background-color: #0056b3;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* Estilo para los mensajes de error */
+.text-danger {
+  font-size: 0.875rem;
+  margin-top: -0.75rem;
+  margin-bottom: 1rem;
+}
